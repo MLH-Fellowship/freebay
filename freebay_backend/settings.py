@@ -1,24 +1,22 @@
 
 
-from pathlib import Path
+import os
 import environ
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 env = environ.Env(
     DEBUG=(bool, False)
 )
-env_file = Path.join(BASE_DIR, ".env")
+env_file = os.path.join(BASE_DIR, ".env")
 
 environ.Env.read_env(env_file)
 
 DEBUG = env('DEBUG')
-
 SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -73,7 +71,7 @@ WSGI_APPLICATION = 'freebay_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -112,3 +110,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+MEDIA_URL  = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+SITE_ID = 1
