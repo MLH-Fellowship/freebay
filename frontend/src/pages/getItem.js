@@ -1,5 +1,5 @@
 
-function getItem() {
+function GetItem() {
     return (
       <div>
           <p>get item</p>
@@ -7,4 +7,4 @@ function getItem() {
       
     );
   }
-  export default getItem;
+  export default GetItem;

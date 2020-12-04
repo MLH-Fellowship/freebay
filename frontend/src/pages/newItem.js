@@ -1,5 +1,5 @@
 
-function newItem() {
+function NewItem() {
     return (
       <div>
           <p>form newItem</p>
@@ -7,4 +7,4 @@ function newItem() {
       
     );
   }
-  export default newItem;
+  export default NewItem;

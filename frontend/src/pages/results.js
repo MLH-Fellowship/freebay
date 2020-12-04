@@ -1,5 +1,5 @@
 
-function results() {
+function Results() {
     return (
       <div>
           <p>results</p>
@@ -7,4 +7,4 @@ function results() {
       
     );
   }
-  export default results;
+  export default Results;
