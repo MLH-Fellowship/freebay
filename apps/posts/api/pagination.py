@@ -10,14 +10,11 @@ class MyPaginationMixin(object):
 		"""
 		The paginator instance associated with the view, or `None`.
 		"""
-		if not hasattr(self, '_paginator'):
-			if self.pagination_class is None:
-				self._paginator = None
-			else:
-				self._paginator = self.pagination_class()
-		else:
-			pass
-		return self._paginator
+if not hasattr(self, '_paginator'):
+    self._paginator = None
+    if self.pagination_class is not None:
+        self._paginator = self.pagination_class()
+return self._paginator
 
 	def paginate_queryset(self, queryset):
 		"""
