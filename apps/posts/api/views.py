@@ -1,7 +1,4 @@
-from rest_framework import (generics, 
-                            viewsets, 
-                            mixins, 
-                            filters)
+from rest_framework import generics, viewsets, mixins, filters
 
 from rest_framework.generics import get_object_or_404
 
