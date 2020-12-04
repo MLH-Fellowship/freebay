@@ -1,5 +1,4 @@
 from django.db import models
-from apps.core.utils import generate_unique_slug
 
 
 class Category(models.Model):
@@ -7,7 +6,7 @@ class Category(models.Model):
     title = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class Country(models.Model):
@@ -31,14 +30,14 @@ class Location(models.Model):
     
 
     def __str__(self):
-        return self.country+", "+self.city
+        return str(self.country)
 
 
 class Post(models.Model):
     """this class models a post object"""
     slug = models.SlugField(max_length=150, unique=True)
     caption = models.CharField(max_length=100)
-    email = models.CharField(max_length=100, null=True)
+    email = models.EmailField(max_length=254)
     description = models.TextField(null=True, blank=True)
     category = models.ForeignKey(
                                   Category, 
@@ -61,12 +60,6 @@ class Post(models.Model):
                                 )
     date_created =  models.DateTimeField(auto_now_add=True)
     #will figure out how to do the expiration thing here
-
-    #customizing the default save method
-    def save(self, *args, **kwargs):
-        super(Post, self).save(*args, **kwargs)
-        slug = generate_unique_slug(self.caption)
-        self.slug = slug
 
     def __str__(self):
         return self.caption

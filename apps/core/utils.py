@@ -32,5 +32,5 @@ def generate_unique_slug(word):
         if character.isalnum():
             alphanumeric += character
 
-    return alphanumeric + generate_random_string()
+    return alphanumeric +"-"+ generate_random_string()
 
