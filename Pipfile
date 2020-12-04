@@ -10,6 +10,7 @@ django = "==2.2"
 djangorestframework = "*"
 django-environ = "*"
 pillow = "*"
+django-rest-swagger = "*"
 
 [requires]
 python_version = "3.7"

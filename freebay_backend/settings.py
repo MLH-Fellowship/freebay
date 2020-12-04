@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 
     #third party packages
     'rest_framework',
+    'rest_framework_swagger',
 
     #developer apps
     'apps.posts',
@@ -92,6 +93,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+}
+
 
 
 # Internationalization

@@ -9,6 +9,7 @@ from apps.posts.api.serializers import PostSerializer
 class ItemsViewSet(mixins.ListModelMixin,
                     mixins.CreateModelMixin,
                     mixins.RetrieveModelMixin,
+                    viewsets.GenericViewSet
                     ):
     """ This automatically generates list, create and retrieve
         endpoints for items.
