@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     #third party packages
     'rest_framework',
     'rest_framework_swagger',
+    'corsheaders',
 
     #developer apps
     'apps.posts',
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -67,14 +69,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'freebay_backend.wsgi.application'
 
 
-# Database
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        } 
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': env.str('DATABASE_NAME'),
+            'USER': env.str('DATABASE_USER'),
+            'PASSWORD': env.str('DATABASE_PASSWORD'),
+            'HOST': 'freebay.mysql.pythonanywhere-services.com',
+        }
+    }
 
 
 # Password validation
@@ -124,3 +135,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 SITE_ID = 1
+CORS_ORIGIN_ALLOW_ALL = True

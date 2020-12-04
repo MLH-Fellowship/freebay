@@ -11,6 +11,7 @@ djangorestframework = "*"
 django-environ = "*"
 pillow = "*"
 django-rest-swagger = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.7"
