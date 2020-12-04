@@ -28,9 +28,7 @@ class PostSerializer(serializers.ModelSerializer):
 	def get_downvotes(self, object):
 		votes = object.down_voters.count()
 
-		if votes > 0:
-			votes = votes * -1
-		return votes
+		return votes * -1
 
 	def get_current_user_has_upvoted(self, object):
 		request = self.context.get("request")
