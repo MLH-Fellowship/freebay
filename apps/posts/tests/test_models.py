@@ -2,9 +2,8 @@ from django.test import TestCase
 from apps.posts.models import Post, Category
 
 
-#this class tests the custom-user model
 class PostModelTest(TestCase):
-    """ This test the post model """
+    """ This tests the post model """
 
     @classmethod
     def setUpTestData(cls): 

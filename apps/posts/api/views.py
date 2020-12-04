@@ -26,14 +26,14 @@ class ItemsViewSet(mixins.ListModelMixin,
         #this grabs and returns a country if it exists
         #if it doesn't a new instance is created, persisted 
         #in the db and then returned
-        country_obj, created = Country.objects.get_or_create(
+        country_obj, _ = Country.objects.get_or_create(
                                                     name=cnry
                                                     )
 
         #this grabs and returns a location object if it exists
         #if it doesn't a new instance is created, persisted 
         #in the db and then returned
-        location_obj, created = Location.objects.get_or_create(
+        location_obj, _ = Location.objects.get_or_create(
                                                     country=country_obj,
                                                     city=cty,
                                                     )

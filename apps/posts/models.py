@@ -12,10 +12,7 @@ class Category(models.Model):
 
 class Country(models.Model):
     """this models a country"""
-    name = models.CharField(
-                            max_length=100, 
-                            unique=True
-                            )
+    name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
@@ -30,10 +27,7 @@ class Location(models.Model):
                                   null=True, 
                                   blank=True
                                   )
-    city = models.CharField(
-                            max_length=100, 
-                            unique=True
-                            )
+    city = models.CharField(max_length=100, unique=True)
     
 
     def __str__(self):
@@ -42,19 +36,10 @@ class Location(models.Model):
 
 class Post(models.Model):
     """this class models a post object"""
-    slug = models.SlugField(
-                            max_length=150, 
-                            unique=True
-                            )
+    slug = models.SlugField(max_length=150, unique=True)
     caption = models.CharField(max_length=100)
-    email = models.CharField(
-                              max_length=100, 
-                              null=True
-                              )
-    description = models.TextField(
-                                    null=True, 
-                                    blank=True
-                                    )
+    email = models.CharField(max_length=100, null=True)
+    description = models.TextField(null=True, blank=True)
     category = models.ForeignKey(
                                   Category, 
                                   on_delete=models.SET_NULL, 
@@ -78,7 +63,6 @@ class Post(models.Model):
     #will figure out how to do the expiration thing here
 
     #customizing the default save method
-
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
         slug = generate_unique_slug(self.caption)
