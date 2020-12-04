@@ -12,10 +12,7 @@ class Category(models.Model):
 
 class Country(models.Model):
     """this models a country"""
-    name = models.CharField(
-                            max_length=100, 
-                            unique=True
-                            )
+    name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
