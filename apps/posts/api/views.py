@@ -5,12 +5,7 @@ from rest_framework import (generics,
 
 from rest_framework.generics import get_object_or_404
 
-from apps.posts.models import (
-                                Post, 
-                                Category, 
-                                Location,
-                                Country
-                                )
+from apps.posts.models import Post, Category, Location, Country
 from apps.posts.api.serializers import PostSerializer
 
 
