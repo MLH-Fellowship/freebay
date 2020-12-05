@@ -1,4 +1,7 @@
+from datetime import datetime, timezone
+
 from django.db import models
+from django.db.models.signals import post_save
 
 
 class Category(models.Model):
@@ -28,7 +31,6 @@ class Location(models.Model):
                                   )
     city = models.CharField(max_length=100, unique=True)
     
-
     def __str__(self):
         return str(self.country)
 
@@ -59,7 +61,28 @@ class Post(models.Model):
                                 blank=True
                                 )
     date_created =  models.DateTimeField(auto_now_add=True)
-    #will figure out how to do the expiration thing here
 
     def __str__(self):
         return self.caption
+
+
+# a function that clears items that had been in the db 
+# for 2mins or more(for the purpose of testing)
+def clear_items(sender, instance, created, **kwargs):
+    if created:
+        items = Post.objects.all()
+
+        if items:
+            for item in items:
+                date_created = item.date_created
+                current_date = datetime.now(timezone.utc)
+                time_delta = current_date - date_created
+                minutes = time_delta.total_seconds() / 60
+
+                if minutes >= 2:
+                    item.delete()
+
+
+#this signal calls the clear_items function
+#each time a new item is created
+post_save.connect(clear_items, sender=Post)
