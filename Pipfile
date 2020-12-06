@@ -12,6 +12,7 @@ django-environ = "*"
 pillow = "*"
 django-rest-swagger = "*"
 django-cors-headers = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.7"

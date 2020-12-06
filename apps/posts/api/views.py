@@ -1,6 +1,7 @@
 from rest_framework import generics, viewsets, mixins, filters
 
 from rest_framework.generics import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 
 from apps.posts.models import Post, Category, Location, Country
 from apps.posts.api.serializers import PostSerializer
@@ -33,6 +34,9 @@ class ItemsViewSet(mixins.ListModelMixin,
     queryset = Post.objects.all().order_by("-date_created")
     lookup_field = 'slug'
     serializer_class = PostSerializer
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category', 'description']
 
     def perform_create(self, serializer):
         cat = self.request.data["category"] 
