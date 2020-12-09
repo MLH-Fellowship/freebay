@@ -3,7 +3,7 @@
         <h1>What would you like to donate?</h1>
         <div class="form-group">
             <label>Name:</label>
-            <input type="text" id="inputTitle" v-model="item.title" placeholder="">
+            <input type="text" id="inputTitle" v-model="item.caption" placeholder="">
             <label>Category:</label>
             <select v-model="item.category">
                 <option v-for="category in categories" :key="category">
@@ -15,11 +15,15 @@
             <label>Insert Image:</label>
             <input type="file" @change="onFileSelected">
             <label>Location:</label>
-            <select v-model="item.location">
+            <select v-model="item.country">
                 <option v-for="country in countries" :key="country">
                     {{country}}
                 </option>
             </select>
+            <label>City:</label>
+            <input type="text" id="inputCity" v-model="item.city" placeholder="">
+            <label>E-mail:</label>
+            <input type="text" id="inputEmail" v-model="item.email" placeholder="example@gmail.com">
         </div>
         <button class="donate-button" @click="donateItem()">
             Donate
@@ -28,19 +32,21 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'Donate',
   data() {
       return{
           item: {
-            id: 0,
-            title: '',
-            category:'',
-            description: '',
-            image: '',
-            location: ''
-          },
+            "caption": "",
+            "email": "",
+            "description": "",
+            "country": "",
+            "city": "",
+            "category": "",
+            "image": ""
+            },
           categories: [
             'Food',
             'Clothes',
@@ -69,9 +75,18 @@ export default {
   methods: {
       onFileSelected(event) {
           this.selectedFile = event.target.files[0];
+          const fileReader = new FileReader();
+          fileReader.addEventListener('load', () => {
+              //this.item.image = fileReader.result;
+          });
+          fileReader.readAsDataURL(this.selectedFile);
       },
       donateItem() {
-          console.log(this.item);
+          this.item.image = this.selectedFile;
+        axios.post('http://freebay.pythonanywhere.com/api/v1/items/', this.item)
+        .then(response => console.log(response.data))
+        .catch(err => alert(err));
+        this.item.title = '';
       }
   }
 }
